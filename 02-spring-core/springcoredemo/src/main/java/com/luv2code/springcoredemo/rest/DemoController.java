@@ -11,6 +11,9 @@ public class DemoController {
     // define a private field for the dependency
     private Coach myCoach;
 
+    public DemoController(){
+        System.out.println("In constructor: " + getClass().getSimpleName());
+    }
 
     // Constructor injection method
     @Autowired
@@ -20,7 +23,6 @@ public class DemoController {
     }
 
 //     This is Setter Injection example
-//    @Autowired
 //    public void setCoach(Coach theCoach){
 //        myCoach = theCoach;
 //    }
