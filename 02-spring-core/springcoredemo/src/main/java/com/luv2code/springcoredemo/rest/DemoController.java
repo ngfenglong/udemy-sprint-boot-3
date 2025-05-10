@@ -2,6 +2,7 @@ package com.luv2code.springcoredemo.rest;
 
 import com.luv2code.springcoredemo.common.Coach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,15 +13,17 @@ public class DemoController {
 
 
     // Constructor injection method
-//    @Autowired
-//    public DemoController(Coach theCoach) {
-//        myCoach = theCoach;
-//    }
-
     @Autowired
-    public void setCoach(Coach theCoach){
+    public DemoController(@Qualifier("baseballCoach") Coach theCoach) {
+        // Not recommended to have both @Qualifier and @Primary to be used in a project
         myCoach = theCoach;
     }
+
+//     This is Setter Injection example
+//    @Autowired
+//    public void setCoach(Coach theCoach){
+//        myCoach = theCoach;
+//    }
 
     @GetMapping("/dailyworkout")
     public String getWorkoutDaily(){
