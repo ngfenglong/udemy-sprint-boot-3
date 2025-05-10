@@ -10,25 +10,35 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
     // define a private field for the dependency
     private Coach myCoach;
+    private Coach anotherCoach;
 
-    public DemoController(){
-        System.out.println("In constructor: " + getClass().getSimpleName());
-    }
 
     // Constructor injection method
     @Autowired
-    public DemoController(@Qualifier("baseballCoach") Coach theCoach) {
-        // Not recommended to have both @Qualifier and @Primary to be used in a project
+    public DemoController(@Qualifier("cricketCoach") Coach theCoach,
+                          @Qualifier("cricketCoach") Coach theAnotherCoach) {
+        // Not recommended to have both @Qualifier and @Primary to be used in a projec
+
+
+        System.out.println("In constructor: " + getClass().getSimpleName());
         myCoach = theCoach;
+        anotherCoach = theAnotherCoach;
     }
 
-//     This is Setter Injection example
+    @GetMapping("/dailyworkout")
+    public String getWorkoutDaily() {
+        return myCoach.getDailyWorkout();
+    }
+
+    @GetMapping("/check")
+    public String check() {
+        return "Comparing beans: my coach == anotherCoach, " + (myCoach == anotherCoach);
+    }
+
+
+//    This is Setter Injection example
 //    public void setCoach(Coach theCoach){
 //        myCoach = theCoach;
 //    }
 
-    @GetMapping("/dailyworkout")
-    public String getWorkoutDaily(){
-        return myCoach.getDailyWorkout();
-    }
 }
