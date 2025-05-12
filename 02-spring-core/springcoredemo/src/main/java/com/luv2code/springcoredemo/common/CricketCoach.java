@@ -13,17 +13,17 @@ public class CricketCoach implements Coach{
         System.out.println("In constructor: " + getClass().getSimpleName());
     }
 
-    // define init method
-    @PostConstruct
-    public void doMyStartupStuff(){
-        System.out.println("In doMyStartupStuff(): " + getClass().getSimpleName());
-    }
-
-    // define destroy method
-    @PreDestroy
-    public void dMyCleanupStuff(){
-        System.out.println("In dMyCleanupStuff(): " + getClass().getSimpleName());
-    }
+//    // define init method
+//    @PostConstruct
+//    public void doMyStartupStuff(){
+//        System.out.println("In doMyStartupStuff(): " + getClass().getSimpleName());
+//    }
+//
+//    // define destroy method
+//    @PreDestroy
+//    public void dMyCleanupStuff(){
+//        System.out.println("In dMyCleanupStuff(): " + getClass().getSimpleName());
+//    }
 
 
     @Override

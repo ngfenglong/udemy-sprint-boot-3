@@ -14,7 +14,7 @@ public class DemoController {
 
     // Constructor injection method
     @Autowired
-    public DemoController(@Qualifier("cricketCoach") Coach theCoach
+    public DemoController(@Qualifier("aquatic") Coach theCoach
                           // @Qualifier("cricketCoach") Coach theAnotherCoach
     ) {
         // Not recommended to have both @Qualifier and @Primary to be used in a project
