@@ -5,7 +5,10 @@ import com.luv2code.cruddemo.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.gson.GsonProperties;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class CruddemoApplication {
@@ -17,33 +20,54 @@ public class CruddemoApplication {
     @Bean
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
         return runner -> {
-//			System.out.println("Hello World");
+            // System.out.println("Hello World");
+            // createMultipleStudent(studentDAO);
+            // readStudent(studentDAO);
+            // queryForStudent(studentDAO);
+            queryForStudentByLastName(studentDAO);
 
-//            createMultipleStudent(studentDAO);
-
-            readStudent(studentDAO);
         };
+    }
+
+    private void queryForStudentByLastName(StudentDAO studentDAO) {
+        List<Student> theStudents = studentDAO.findByLastName("doe");
+
+        for(Student tempStudent: theStudents){
+            System.out.println(tempStudent);
+        }
+    }
+
+    private void queryForStudent(StudentDAO studentDAO) {
+        // get a list of student
+        List<Student> theStudents = studentDAO.findAll();
+
+        for(Student tempStudent: theStudents){
+            System.out.println(tempStudent);
+        }
+
+        // display list of students
     }
 
     private void readStudent(StudentDAO studentDAO) {
         // create a student object
-		System.out.println("Creating new student object...");
-    	Student tempStudent = new Student("Daffy", "Duck", "daffy@luv2code.com");
+        System.out.println("Creating new student object...");
+        Student tempStudent = new Student("Daffy", "Duck", "daffy@luv2code.com");
 
         // save the student
-		System.out.println("Saving the student ...");;
+        System.out.println("Saving the student ...");
+        ;
         studentDAO.save(tempStudent);
 
         // display id of the saved student
         int theId = tempStudent.getId();
-		System.out.println("Saved student. Generated id :" + theId);
+        System.out.println("Saved student. Generated id :" + theId);
 
         // retrieve student based on the id : primary key
         System.out.println("Retrieving student with id: " + theId);
         Student mystudent = studentDAO.findById(theId);
 
         // display student
-        System.out.println("Found the student: "+ mystudent);
+        System.out.println("Found the student: " + mystudent);
     }
 
     private void createMultipleStudent(StudentDAO studentDAO) {
