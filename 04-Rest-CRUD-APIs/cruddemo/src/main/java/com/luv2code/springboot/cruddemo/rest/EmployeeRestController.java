@@ -23,21 +23,21 @@ public class EmployeeRestController {
         objectMapper = theObjectMapper;
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/employeesServ")
     public List<Employee> findAll(){
         return employeeService.findAll();
     }
 
-    // add mapping for Get /employees/(employeeId)
-    @GetMapping("/employees/{employeeId}")
+    // add mapping for Get /employeesServ/(employeeId)
+    @GetMapping("/employeesServ/{employeeId}")
     public Employee getEmployees(@PathVariable int employeeId){
         Employee theEmployee = employeeService.findById(employeeId);
 
         return theEmployee;
     }
 
-    // add mapping for POST /employees - add new employee
-    @PostMapping("/employees")
+    // add mapping for POST /employeesServ - add new employee
+    @PostMapping("/employeesServ")
     public Employee addEmployee(@RequestBody Employee theEmployee){
         theEmployee.setId(0);
         Employee dbEmployee = employeeService.save(theEmployee);
@@ -45,14 +45,14 @@ public class EmployeeRestController {
         return dbEmployee;
     }
 
-    @PutMapping("/employees")
+    @PutMapping("/employeesServ")
     public Employee UpdateEmployee(@RequestBody Employee theEmployee){
         Employee dbEmployee = employeeService.save(theEmployee);
 
         return dbEmployee;
     }
 
-    @PatchMapping("/employees/{employeeId}")
+    @PatchMapping("/employeesServ/{employeeId}")
     public Employee patchEmployee(@PathVariable int employeeId, @RequestBody Map<String, Object> patchPayload){
         Employee tempEmployee = employeeService.findById(employeeId);
 
@@ -72,7 +72,7 @@ public class EmployeeRestController {
 
     }
 
-    @DeleteMapping("employees/{employeeId}")
+    @DeleteMapping("employeesServ/{employeeId}")
     public String deleteEmployee(@PathVariable int employeeId){
         Employee tempEmployee = employeeService.findById(employeeId);
 
@@ -84,6 +84,7 @@ public class EmployeeRestController {
 
         return "Deleted employee id - " + employeeId;
     }
+    //endregion
 
     private Employee apply(Map<String, Object> patchPayload, Employee tempEmployee) {
         // Convert employee object to a JSON object node

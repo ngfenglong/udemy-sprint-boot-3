@@ -9,4 +9,9 @@ public interface EmployeeService {
     Employee findById(int theId);
     Employee save(Employee emp);
     void deleteById(int theId);
+
+    List<Employee> findAllByRepo();
+    Employee findByIdByRepo(int theId);
+    Employee saveByRepo(Employee emp);
+    void deleteByIdByRepo(int theId);
 }
