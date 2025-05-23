@@ -4,6 +4,7 @@ import com.luv2code.cruddemo.dao.AppDAO;
 import com.luv2code.cruddemo.entity.Course;
 import com.luv2code.cruddemo.entity.Instructor;
 import com.luv2code.cruddemo.entity.InstructorDetail;
+import com.luv2code.cruddemo.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,8 +34,46 @@ public class CruddemoApplication {
             // findInstructorWithCoursesJoinFetch(appDao);
             // updateInstructor(appDao);
             // updateCourse(appDao);
-            deleteCourse(appDao);
+            // deleteCourse(appDao);
+            // createCourseAndReview(appDao);
+            // retrieveCourseAndReviews(appDao);
+
+            deleteCourseAndReviews(appDao);
         };
+    }
+
+    private void deleteCourseAndReviews(AppDAO appDao) {
+        int theId = 10;
+
+        System.out.println("Deleting courses id : " + theId);
+
+        appDao.deleteCourseById(theId);
+
+        System.out.println("Done");
+    }
+
+    private void retrieveCourseAndReviews(AppDAO appDao) {
+        int theId = 10;
+        Course tempCourse = appDao.findCourseAndReviewById(theId);
+
+        System.out.println(tempCourse);
+        System.out.println(tempCourse.getReviews());
+        System.out.println("Done");
+    }
+
+    private void createCourseAndReview(AppDAO appDao) {
+        Course tempCourse = new Course("Pacman - How to SCore One Million Points");
+        tempCourse.addReview(new Review("Great Course...loved it"));
+        tempCourse.addReview(new Review("Cool course, job well done"));
+        tempCourse.addReview(new Review("What a dumb course, you are an idiot"));
+
+        System.out.println("Saving the course");
+        System.out.println(tempCourse);
+        System.out.println(tempCourse.getReviews());
+
+        appDao.save(tempCourse);
+        System.out.println("Done");
+
     }
 
     private void deleteCourse(AppDAO appDao) {

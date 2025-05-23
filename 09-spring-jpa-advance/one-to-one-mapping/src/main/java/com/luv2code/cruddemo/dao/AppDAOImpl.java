@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 @Repository
@@ -116,6 +117,25 @@ public class AppDAOImpl implements AppDAO{
         Course tempCourse = entityManager.find(Course.class, theId);
 
         entityManager.remove(tempCourse);
+    }
+
+    @Override
+    @Transactional
+    public void save(Course theCourse) {
+        entityManager.persist(theCourse);
+    }
+
+    @Override
+    public Course findCourseAndReviewById(int theId) {
+        TypedQuery<Course> query = entityManager.createQuery(
+                "select c from Course c Join Fetch c.reviews where c.id = :data", Course.class
+        );
+
+        query.setParameter("data", theId);
+
+        Course course = query.getSingleResult();
+
+        return course;
     }
 
 }
