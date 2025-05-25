@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class AopdemoApplication {
 
@@ -17,9 +19,42 @@ public class AopdemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO) {
 		return runner-> {
-			System.out.println("Hello World");
-			demoTheBeforeAdvice(theAccountDAO, theMembershipDAO);
+
+			// demoTheBeforeAdvice(theAccountDAO, theMembershipDAO);
+			// demoTheAfterReturningAdvice(theAccountDAO);
+			demoTheAfterThrowingAdvice(theAccountDAO);
 		};
+	}
+
+	private void demoTheAfterThrowingAdvice(AccountDAO theAccountDAO) {
+		List<Account> theAccounts = null;
+
+		try{
+			boolean tripWire = true;
+			theAccounts = theAccountDAO.findAccounts(tripWire);
+		 }
+		catch (Exception exc){
+			System.out.println("\n\n Main Program: ... caught exception: " + exc);
+		}
+		System.out.println("\n\nMain Program: demoTheAfterThrowingAdvice");
+		System.out.println("----");;
+
+		System.out.println(theAccounts);
+
+		System.out.println("\n");
+	}
+
+	private void demoTheAfterReturningAdvice(AccountDAO theAccountDAO) {
+		List<Account> theAccounts = theAccountDAO.findAccounts();
+
+		System.out.println("\n\nMain Program: demoTheAfterReturningAdvice");
+		System.out.println("----");;
+
+		System.out.println(theAccounts);
+
+		System.out.println("\n");
+
+
 	}
 
 	private void demoTheBeforeAdvice(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO) {
